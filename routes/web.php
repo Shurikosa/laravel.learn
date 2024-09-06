@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SingleTestController;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     dump ('Hello World');
-    dump(config('database.connections.sqlite')); //метод config дозволяє діставати дані з папки - larave.learn/config/...
+    dump(config('database.connections.sqlite')); //метод config дозволяє діставати дані з теки - laravel.learn/config/...
     dump(config('myconfigexample.myconfig_1')); // зразок нового конфіг файлу
     return view('welcome');
 });
@@ -18,7 +23,7 @@ Route::get('/test', function () {
  * де {name} – значення параметра. Наприклад, /greet/John має виводити "Hello, John!".
  */
 Route::get('/greet/{name}', function ($name) {
-    return "Hello {$name}";
+    return "Hello $name";
 });
 
 /*
@@ -26,7 +31,7 @@ Route::get('/greet/{name}', function ($name) {
  * якщо параметр не передано. Наприклад, /greet має виводити "Hello, Guest!".
  */
 Route::get('/greet/{name?}', function ($name = 'guest') {
-    return "Hello {$name}";
+    return "Hello $name";
 });
 /*
  * маршрут /submit, котрий приймає дані за допомогою методу POST і повертає повідомлення "Form submitted!".
@@ -35,7 +40,7 @@ Route::get('/greet/{name?}', function ($name = 'guest') {
  */
 Route::post('/submit', function () {
    return 'Form Submitted';
-})->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
+})->withoutMiddleware(VerifyCsrfToken::class);
 
 /*
  * маршрут /update, який використовує метод PUT і повертає повідомлення "Data updated!".
@@ -56,7 +61,7 @@ Route::delete('/delete', function () {
  * У цій групі додай маршрут /dashboard, який повертає "Admin Dashboard",
  * і маршрут /settings, який повертає "Admin Settings".
  */
-Route::prefix('admin')->group(function () {
+Route::prefix('hello')->group(function () {
     Route::get('/dashboard', function () {
         return 'Here must be admin dashboard view';
     });
@@ -79,4 +84,63 @@ Route::prefix('admin')->group(function () {
 Route::get('/contact', function () {
     return 'Contact Page';
 })->name('contact');
+
+/*
+ * Використовую хелпер route() для генерації URL і повертаю його як відповіді з іншого маршруту /get-contact-url.
+ * Використовую іменований маршрут contact для цього.
+ */
+Route::get('/get-contact-url', function () {
+    return route('contact');
+});
+
+/*
+ * маршрут /user/{id}, де параметр id повинен бути числом. регулярний вираз для обмеження параметра.
+ */
+Route::get('/user/{id}', function ($id) {
+    return "User ID: $id";
+})->where('id', '[0-9]+');
+
+/*
+ * маршрут /username/{name}, де параметр name повинен складатися тільки з букв.
+ */
+Route::get('/username/{name}', function ($name) {
+    return "Username: $name";
+})->where('name', '[A-Za-z]+');
+
+/*
+ * ---------------------------------- далі йдуть приклади з використанням контроллерів----------------------------------
+ */
+
+/*
+ * Цей рядок робить наступне:
+ * Route::get('/') — визначає маршрут для HTTP-запиту GET на головну сторінку (/).
+ * [HomeController::class, 'index'] — вказує, що при запиті на цей маршрут буде викликано метод index з контролера HomeController.
+ * ->name('home') — присвоює цьому маршруту ім'я home для зручного використання в коді (наприклад, для генерації посилань або перенаправлень).
+ */
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/single', SingleTestController::class); //можна вказувати шлях до класу без імпорту
+
+/*
+ * групування ендпоінтів по префіксу та імені
+ */
+Route::prefix('admin')->name('admin.')->group(function ()
+{
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index'); // name->admin.products.index
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store')
+    ->withoutMiddleware(VerifyCsrfToken::class);
+    Route::get('/products/{product}/show', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::patch('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+});
+
+/*
+ * Цей код виконує всі маршрути попередньої групи
+ * але це не явний і не гнучкий спосіб, тому потрібно бути уважним
+ * можна налаштовувати за допомогою методів except і only
+ * Route::resource('posts', PostController::class)->except(['create', 'show']);
+ * Route::resource('posts', PostController::class)->only(['show']);
+ */
+Route::resource('posts', PostController::class);
 
