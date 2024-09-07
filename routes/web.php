@@ -144,3 +144,4 @@ Route::prefix('admin')->name('admin.')->group(function ()
  */
 Route::resource('posts', PostController::class);
 
+Route::get('/dashboard',[\App\Http\Controllers\Admin\DashboardController::class,'index'])->name('dashboard');
