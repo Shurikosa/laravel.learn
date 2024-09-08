@@ -46,11 +46,7 @@
       <p>Age: {{$age}}</p>
 
       <nav>
-          <ul>
-              <li><a href="{{route('admin.products.index')}}">Show</a></li>
-              <li><a href="{{route('admin.products.store')}}">Store</a></li>
-              <li><a href="{{route('admin.products.create')}}">Create</a></li>
-          </ul>
+          {!! $menu !!}
       </nav>
   </div>
 

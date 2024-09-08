@@ -118,6 +118,7 @@ Route::get('/username/{name}', function ($name) {
  * ->name('home') — присвоює цьому маршруту ім'я home для зручного використання в коді (наприклад, для генерації посилань або перенаправлень).
  */
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/single', SingleTestController::class); //можна вказувати шлях до класу без імпорту
 
 /*
