@@ -1,0 +1,132 @@
+
+Laravel Blade Directives
+
+1. @extends
+   Використовується для успадкування макета (layout).
+   @extends('layouts.master')
+
+2. @section
+   Визначає секцію, яка може бути заповнена у дочірніх шаблонах.
+   @section('title', 'Головна сторінка')
+   @section('content')
+       <p>Вміст сторінки</p>
+   @endsection
+
+3. @yield
+   Виводить вміст секції, визначеної у дочірньому шаблоні.
+   <div class="content">
+       @yield('content')
+   </div>
+
+4. @include
+   Включає інший шаблон.
+   @include('partials.header')
+
+5. @if, @elseif, @else, @endif
+   Використовується для умовного відображення даних.
+   @if ($user->isAdmin())
+       <p>Ви адміністратор.</p>
+   @else
+       <p>Ви не адміністратор.</p>
+   @endif
+
+6. @auth та @guest
+   Використовується для перевірки, чи користувач аутентифікований або гість.
+   @auth
+       <p>Вітаємо, {{ auth()->user()->name }}</p>
+   @endauth
+
+   @guest
+       <p>Будь ласка, увійдіть у систему.</p>
+   @endguest
+
+7. @csrf
+   Вставляє токен CSRF для захисту форм від міжсайтових запитів підробки.
+   <form method="POST">
+       @csrf
+       <!-- Поля форми -->
+   </form>
+
+8. @foreach, @forelse, @endforelse, @endforeach
+   Використовується для перебору масивів або колекцій.
+   @foreach ($users as $user)
+       <p>{{ $user->name }}</p>
+   @endforeach
+
+   @forelse ($products as $product)
+       <p>{{ $product->name }}</p>
+   @empty
+       <p>Немає продуктів.</p>
+   @endforelse
+
+9. @for, @endfor
+   Цикл for.
+   @for ($i = 0; $i < 10; $i++)
+       <p>Номер: {{ $i }}</p>
+   @endfor
+
+10. @while, @endwhile
+   Цикл while.
+   @while ($condition)
+       <p>Цикл працює</p>
+   @endwhile
+
+11. @switch, @case, @break, @default, @endswitch
+   Конструкція switch для умов.
+   @switch($status)
+       @case('active')
+           <p>Користувач активний</p>
+           @break
+
+       @case('inactive')
+           <p>Користувач неактивний</p>
+           @break
+
+       @default
+           <p>Статус невідомий</p>
+   @endswitch
+
+12. @env
+   Перевірка середовища.
+   @env('local')
+       <p>Це локальне середовище.</p>
+   @endenv
+
+13. @verbatim
+   Використовується для уникнення обробки Blade-директив у певному блоці коду.
+   @verbatim
+       <div class="container">
+           {{ Це не буде оброблено Blade }}
+       </div>
+   @endverbatim
+
+14. @php
+   Виконує PHP-код у Blade-шаблоні.
+   @php
+       $message = 'Привіт, світ!';
+   @endphp
+   <p>{{ $message }}</p>
+
+15. @error
+   Використовується для відображення помилок валідації.
+   @error('field_name')
+       <p>{{ $message }}</p>
+   @enderror
+
+16. @method
+   Використовується для вказівки HTTP-методу в формах.
+   <form method="POST">
+       @method('PUT')
+   </form>
+
+17. @json
+   Перетворює PHP-дані в JSON.
+   <script>
+       var user = @json($user);
+   </script>
+
+18. @once
+   Забезпечує виконання блоку коду лише один раз.
+   @once
+       <script>console.log('Це буде виконано лише один раз.');</script>
+   @endonce
