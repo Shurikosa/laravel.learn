@@ -1,0 +1,94 @@
+Типи змінних для створення таблиць у Laravel:
+
+1. $table->string('column_name', $length);
+   - Створює стовпець типу VARCHAR. За замовчуванням має довжину 255 символів.
+   - Приклад: $table->string('name', 150);
+
+2. $table->text('column_name');
+   - Створює стовпець типу TEXT для зберігання великого обсягу тексту.
+
+3. $table->mediumText('column_name');
+   - Створює стовпець типу MEDIUMTEXT, який може зберігати більше тексту, ніж TEXT.
+
+4. $table->longText('column_name');
+   - Створює стовпець типу LONGTEXT для зберігання ще більшого обсягу тексту.
+
+5. $table->integer('column_name');
+   - Створює стовпець типу INTEGER.
+
+6. $table->bigInteger('column_name');
+   - Створює стовпець типу BIGINT (велике ціле число).
+
+7. $table->tinyInteger('column_name');
+   - Створює стовпець типу TINYINT (маленьке ціле число).
+
+8. $table->smallInteger('column_name');
+   - Створює стовпець типу SMALLINT (маленьке ціле число).
+
+9. $table->boolean('column_name');
+   - Створює стовпець типу BOOLEAN, який може мати значення true або false.
+
+10. $table->decimal('column_name', $precision, $scale);
+    - Створює стовпець типу DECIMAL з певною кількістю цифр ($precision) і цифр після коми ($scale).
+    - Приклад: $table->decimal('price', 8, 2);
+
+11. $table->float('column_name', $total, $decimal);
+    - Створює стовпець типу FLOAT для зберігання числа з плаваючою точкою.
+
+12. $table->double('column_name', $total, $decimal);
+    - Створює стовпець типу DOUBLE для зберігання числа з плаваючою точкою з більшою точністю.
+
+13. $table->date('column_name');
+    - Створює стовпець типу DATE для зберігання дати (без часу).
+
+14. $table->dateTime('column_name');
+    - Створює стовпець типу DATETIME для зберігання дати та часу.
+
+15. $table->timestamp('column_name');
+    - Створює стовпець типу TIMESTAMP для зберігання мітки часу.
+
+16. $table->time('column_name');
+    - Створює стовпець типу TIME для зберігання часу.
+
+17. $table->year('column_name');
+    - Створює стовпець типу YEAR для зберігання року.
+
+18. $table->enum('column_name', ['option1', 'option2']);
+    - Створює стовпець типу ENUM, який обмежений певним набором значень.
+    - Приклад: $table->enum('status', ['pending', 'approved', 'rejected']);
+
+19. $table->json('column_name');
+    - Створює стовпець типу JSON для зберігання JSON даних.
+
+20. $table->binary('column_name');
+    - Створює стовпець типу BLOB для зберігання бінарних даних.
+
+21. $table->uuid('column_name');
+    - Створює стовпець для зберігання UUID.
+
+22. $table->ipAddress('column_name');
+    - Створює стовпець для зберігання IP-адреси.
+
+23. $table->macAddress('column_name');
+    - Створює стовпець для зберігання MAC-адреси.
+
+24. $table->geometry('column_name');
+    - Створює стовпець для зберігання геометричних даних.
+
+25. $table->point('column_name');
+    - Створює стовпець для зберігання точок на координатній площині (географічні координати).
+
+26. $table->multiPoint('column_name');
+    - Створює стовпець для зберігання набору точок.
+
+27. $table->lineString('column_name');
+    - Створює стовпець для зберігання ліній.
+
+28. $table->multiLineString('column_name');
+    - Створює стовпець для зберігання набору ліній.
+
+29. $table->polygon('column_name');
+    - Створює стовпець для зберігання полігонів (замкнених ліній).
+
+30. $table->multiPolygon('column_name');
+    - Створює стовпець для зберігання множин полігонів.

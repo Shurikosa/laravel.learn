@@ -1,0 +1,66 @@
+Основні команди php artisan для міграцій:
+
+1. php artisan migrate
+   - Запускає всі міграції, які ще не були застосовані до бази даних.
+
+2. php artisan migrate:rollback
+   - Відкочується на одну міграцію назад (скасовує останню міграцію).
+
+3. php artisan migrate:reset
+   - Скасовує всі міграції, повертаючи базу даних у стан до виконання будь-яких міграцій.
+
+4. php artisan migrate:refresh
+   - Спочатку скасовує всі міграції, потім знову їх запускає. Використовується для оновлення структури бази даних без видалення даних.
+
+5. php artisan migrate:fresh
+   - Повністю видаляє всі таблиці та виконує міграції з самого початку. Це знищує всі дані в базі.
+
+6. php artisan migrate:status
+   - Відображає статус міграцій, показуючи, які міграції були застосовані, а які — ні.
+
+7. php artisan migrate:install
+   - Створює таблицю міграцій у базі даних, якщо вона ще не існує.
+
+8. php artisan make:migration <назва_міграції>
+   - Створює новий файл міграції з базовою структурою.
+   - Приклад: php artisan make:migration create_users_table
+
+9. php artisan migrate:rollback --step=<кількість>
+   - Відкочується на вказану кількість кроків міграцій.
+   - Приклад: php artisan migrate:rollback --step=3 (відкотить останні три міграції).
+
+10. php artisan migrate:refresh --seed
+    - Виконує команду refresh і одночасно виконує сіди (заповнення даними).
+
+11. php artisan migrate:refresh --step=<кількість>
+    - Скасовує вказану кількість міграцій, а потім повторно їх запускає.
+    - Приклад: php artisan migrate:refresh --step=2 (скасує та повторно запустить останні дві міграції).
+
+12. php artisan make:migration:squash
+    - Поєднує декілька існуючих міграцій в одну, щоб зменшити кількість файлів міграцій.
+
+13. php artisan migrate:rollback --force
+    - Використовується для скасування міграцій в середовищі продакшн (production).
+
+14. php artisan migrate:fresh --seed
+    - Видаляє всі таблиці, запускає всі міграції спочатку та виконує сіди після міграцій.
+
+15. php artisan make:migration --table=<ім'я_таблиці>
+    - Створює нову міграцію, яка модифікує вказану таблицю.
+    - Приклад: php artisan make:migration add_column_to_users_table --table=users
+
+16. php artisan make:migration --create=<ім'я_таблиці>
+    - Створює нову міграцію з базовою структурою для створення нової таблиці.
+    - Приклад: php artisan make:migration create_orders_table --create=orders
+
+17. php artisan migrate --pretend
+    - Виводить SQL-запити, які будуть виконані міграцією, але не виконує їх. Корисно для перевірки.
+
+18. php artisan migrate --path=<шлях_до_міграцій>
+    - Запускає міграції з вказаної папки, замість папки за замовчуванням.
+
+19. php artisan migrate --database=<ім'я_бази_даних>
+    - Запускає міграції на вказаній базі даних.
+    - Приклад: php artisan migrate --database=testing
+
+

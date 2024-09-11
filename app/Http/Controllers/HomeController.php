@@ -51,4 +51,5 @@ class HomeController extends Controller
             'title' => $this->contactPageTitle
         ]);
     }
+
 }
