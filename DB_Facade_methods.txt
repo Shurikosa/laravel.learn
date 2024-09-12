@@ -1,0 +1,67 @@
+Найбільш використовувані методи фасаду DB в Laravel:
+
+1. select() - Виконує SELECT-запит і повертає результат.
+   Приклад: DB::select('SELECT * FROM users WHERE active = ?', [1]);
+
+2. insert() - Вставляє записи в таблицю.
+   Приклад: DB::insert('INSERT INTO users (name, email) VALUES (?, ?)', ['John', 'john@example.com']);
+
+3. update() - Оновлює існуючі записи в таблиці.
+   Приклад: DB::update('UPDATE users SET active = 1 WHERE id = ?', [1]);
+
+4. delete() - Видаляє записи з таблиці.
+   Приклад: DB::delete('DELETE FROM users WHERE active = ?', [0]);
+
+5. statement() - Виконує довільний SQL-запит.
+   Приклад: DB::statement('DROP TABLE users');
+
+6. table() - Починає побудову запиту з використанням fluent інтерфейсу на таблиці.
+   Приклад: DB::table('users')->where('active', 1)->get();
+
+7. transaction() - Виконує набір запитів у межах транзакції.
+   Приклад: DB::transaction(function () {
+       DB::update('UPDATE users SET active = 1');
+       DB::delete('DELETE FROM users WHERE active = 0');
+   });
+
+8. raw() - Створює "сирий" SQL-вираз для використання в запитах.
+   Приклад: DB::raw('CURRENT_TIMESTAMP');
+
+9. beginTransaction() - Розпочинає транзакцію вручну.
+   Приклад: DB::beginTransaction();
+
+10. commit() - Підтверджує активну транзакцію.
+    Приклад: DB::commit();
+
+11. rollBack() - Відкочує активну транзакцію.
+    Приклад: DB::rollBack();
+
+12. where() - Додає умови до SQL-запиту.
+    Приклад: DB::table('users')->where('age', '>', 18)->get();
+
+13. join() - Використовується для об'єднання таблиць.
+    Приклад: DB::table('users')
+              ->join('contacts', 'users.id', '=', 'contacts.user_id')
+              ->select('users.*', 'contacts.phone')
+              ->get();
+
+14. count() - Повертає кількість записів.
+    Приклад: DB::table('users')->count();
+
+15. pluck() - Повертає один стовпець з набору результатів.
+    Приклад: DB::table('users')->pluck('email');
+
+16. exists() - Перевіряє, чи існує хоча б один запис, що відповідає умовам.
+    Приклад: DB::table('users')->where('email', 'john@example.com')->exists();
+
+17. chunk() - Виконує запит частинами для обробки великих наборів даних.
+    Приклад: DB::table('users')->chunk(100, function($users) {
+        foreach ($users as $user) {
+            //
+        }
+    });
+18. scalar()повертає безпосередньо значення першого стовпця першого рядка результату запиту,
+            що робить його зручним для отримання простих результатів, таких як числа чи інші одиничні значення.
+    $count = DB::scalar('SELECT COUNT(*) FROM users WHERE active = ?', [1]);
+    У цьому прикладі виконується запит на підрахунок кількості активних користувачів, і результат буде збережений у змінній $count.
+

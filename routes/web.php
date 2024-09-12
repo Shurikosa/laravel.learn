@@ -119,6 +119,7 @@ Route::get('/username/{name}', function ($name) {
  */
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/full_info', [HomeController::class, 'getAllInfoAboutUsers'])->name('fullInfo');
 Route::get('/single', SingleTestController::class); //можна вказувати шлях до класу без імпорту
 
 /*
