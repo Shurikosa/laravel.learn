@@ -121,6 +121,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/full_info', [HomeController::class, 'getAllInfoAboutUsers'])->name('fullInfo');
 Route::get('/single', SingleTestController::class); //можна вказувати шлях до класу без імпорту
+Route::post('/store', [HomeController::class,'store'])->name('store')
+    ->withoutMiddleware(VerifyCsrfToken::class);
+Route::post('/update', [HomeController::class,'update'])->name('update')
+    ->withoutMiddleware(VerifyCsrfToken::class);
 
 /*
  * групування ендпоінтів по префіксу та імені
