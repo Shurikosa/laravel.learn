@@ -17,6 +17,7 @@ class HomeController extends Controller
     protected string $homePageTitle;
     protected string $contactPageTitle;
     protected string $fullInfoPageTitle;
+    protected $citiesList;
 
     public function __construct()
     {
@@ -31,6 +32,7 @@ class HomeController extends Controller
 
         $this->users = json_decode(file_get_contents('https://jsonplaceholder.typicode.com/users'), true);
         $this->usersFromBD = DB::select('select * from users');
+        $this->citiesList  = DB::select('select * from cities');
         $this->homePageTitle = 'Home page';
         $this->contactPageTitle = 'Contact page';
         $this->fullInfoPageTitle = 'Full information page';
@@ -79,12 +81,12 @@ class HomeController extends Controller
     }
 
     //Що один спосіб - це обробник post запиту. тут ми ловимо реквест і записуємо ці дані в бд
-    function store(Request $request){
+    public function store(Request $request){
         Post::query()->create($request->all());// таким чином ми додаємо одразу всі дані, але баз валідації
-        return $request->all();
-    }
+        return $request->all();                //але таким чиом ми заповнюємо таблицю масово, і для цього в сутності
+    }                                          //потрібне поле $fillable
 
-    // ще один спосіб запису в бд. Тут ми вказуємо точно які саме дані будуть записані
+    // ще один спосіб запису в бд. Тут ми вказуємо точно які саме дані будуть оновлені
     public function update(Request $request)
     {
         $post = Post::query()->find($request->id);
@@ -92,6 +94,11 @@ class HomeController extends Controller
         $post->content = $request->content;
         $post->status = $request->status;
         $post->save();
+        //або таким чином
+        /*
+         * $post = Post::query()->findOrFail($request->id);
+         * $post->update($request->all());
+        */
         return 'OK';
     }
 

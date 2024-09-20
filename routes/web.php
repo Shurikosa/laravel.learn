@@ -121,10 +121,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/full_info', [HomeController::class, 'getAllInfoAboutUsers'])->name('fullInfo');
 Route::get('/single', SingleTestController::class); //можна вказувати шлях до класу без імпорту
-Route::post('/store', [HomeController::class,'store'])->name('store')
-    ->withoutMiddleware(VerifyCsrfToken::class);
-Route::post('/update', [HomeController::class,'update'])->name('update')
-    ->withoutMiddleware(VerifyCsrfToken::class);
+Route::post('/store', [HomeController::class,'store'])->withoutMiddleware(VerifyCsrfToken::class);
+Route::post('/update', [HomeController::class,'update'])->withoutMiddleware(VerifyCsrfToken::class);
 
 /*
  * групування ендпоінтів по префіксу та імені
@@ -151,3 +149,5 @@ Route::prefix('admin')->name('admin.')->group(function ()
 Route::resource('posts', PostController::class);
 
 Route::get('/dashboard',[\App\Http\Controllers\Admin\DashboardController::class,'index'])->name('dashboard');
+
+Route::get('/cities',[\App\Http\Controllers\CollectionController::class, 'showDifference' ]);
