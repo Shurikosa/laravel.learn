@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int status
@@ -17,6 +18,10 @@ class Post extends Model
 
     protected $fillable = ['title','content','slug', 'status'];
 
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
     public function  isPublished()
     {
         //Ця конструкція означає якщо status = 1(true) повертаємо - 'Published'. Інакше - 'Not Published'

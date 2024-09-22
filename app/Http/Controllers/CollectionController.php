@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class CollectionController extends Controller
 {
@@ -41,6 +43,22 @@ class CollectionController extends Controller
         }])->inRandomOrder()->limit(30)->get();
         dump($var5->toArray());
 
+    }
 
+    function relations(): View
+    {
+       // $post = Post::query()->find(1);
+       // $tags = $post->tags;
+       // dump($tags->toArray());
+
+        $allPosts = Post::with('tags')->get();
+        foreach ($allPosts as $post) {
+            echo "{$post->title}<br>";
+            foreach ($post->tags as $tag) {
+                echo "{$tag->title}<br>";
+            }
+            echo "<hr>";
+        }
+        return view('home.index');
     }
 }

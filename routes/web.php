@@ -151,3 +151,4 @@ Route::resource('posts', PostController::class);
 Route::get('/dashboard',[\App\Http\Controllers\Admin\DashboardController::class,'index'])->name('dashboard');
 
 Route::get('/cities',[\App\Http\Controllers\CollectionController::class, 'showDifference' ]);
+Route::get('/relations',[\App\Http\Controllers\CollectionController::class, 'relations' ]);
